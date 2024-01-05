@@ -25,6 +25,14 @@ server.get('/videos', () => {
     return videos
 })
 
+server.get('/videoById/:id', (request, reply) => {
+    const videoId = request.params.id
+
+    const video = database.findById(videoId)
+
+    return video
+})
+
 server.put('/videos/:id', (request, reply) => {
     const videoId = request.params.id
     const {title, description, duration} = request.body
@@ -38,8 +46,11 @@ server.put('/videos/:id', (request, reply) => {
     return reply.status(204).send()
 })
 
-server.delete('/videos:id', () => {
-    return 'Hello worl'
+server.delete('/videos/:id', (request, reply) => {
+    const videoId = request.params.id
+
+    database.delete(videoId)
+    return reply.status(204).send()
 })
 
 server.listen({

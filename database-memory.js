@@ -15,6 +15,10 @@ export class DatabaseMemory {
         })
     }
 
+    findById(id) {
+        return this.#videos.get(id)
+    }
+
     create(video) {
 
         const videoId = randomUUID()
@@ -27,6 +31,6 @@ export class DatabaseMemory {
     }
 
     delete(id) {
-        this.#videos.set(id)
+        this.#videos.delete(id)
     }
 }

@@ -13,7 +13,10 @@ GET http://localhost:3333/videos
 
 ###
 
-PUT http://localhost:3333/videos/e9f7429b-0a86-4ea0-8416-86c7888c2132
+GET http://localhost:3333/videoById/50b05686-e39d-4865-8cc9-547bf9e9109d
+###
+
+PUT http://localhost:3333/videos/d17d052e-024f-45bb-b213-6845d701fdf1
 Content-Type: application/json
 
 {
@@ -21,3 +24,7 @@ Content-Type: application/json
     "description": "editando video 03",
     "duration": 190
 }
+
+###
+
+DELETE http://localhost:3333/videos/411d5c15-7ecf-4403-8872-a0de3fff77f2
