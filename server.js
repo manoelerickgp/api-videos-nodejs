@@ -7,13 +7,13 @@ const server = fastify()
 
 //const database = new DatabaseMemory()
 
-const databse = new DatabasePostgres()
+const database = new DatabasePostgres()
 
-server.post('/videos', (request, reply) => {
+server.post('/videos', async (request, reply) => {
 
     const { title, description, duration } = request.body
 
-    database.create({
+    await database.create({
         title,
         description,
         duration,
@@ -22,16 +22,18 @@ server.post('/videos', (request, reply) => {
     return reply.status(201).send()
 })
 
-server.get('/videos', () => {
-    const videos = database.list()
+server.get('/videos', async () => {
+    const videos = await database.list()
     
     return videos
 })
 
-server.get('/videos', (request) => {
+server.get('/findVideoByQuery', (request) => {
     const search = request.query
 
-    const videos = database.list(seach)
+    const videos = database.list(search)
+
+    return videos
 })
 
 server.get('/videoById/:id', (request, reply) => {

@@ -3,14 +3,15 @@ import { sql } from './db.js'
 
 export class DatabasePostgres {
 
-    async list() {
+    async list(search) {
         let videos
 
         if (search) {
-            videos = await sql`select * from videos where title like "%${search}%"`
+            videos = await sql`select * from videos where title like "${'%'+search+'%'}"`
         } else {
             videos = await sql`select * from videos`
         }
+        return videos
     }
 
     findById(id) {
@@ -18,7 +19,7 @@ export class DatabasePostgres {
     }
 
     async create(video) {
-        const videoId = randomUUID
+        const videoId = randomUUID()
 
         const { title, description, duration } = video
 
