@@ -7,15 +7,17 @@ export class DatabasePostgres {
         let videos
 
         if (search) {
-            videos = await sql`select * from videos where title like "${'%'+search+'%'}"`
+            videos = await sql`SELECT * FROM videos WHERE title LIKE "${'%'+search+'%'}"`
         } else {
-            videos = await sql`select * from videos`
+            videos = await sql`SELECT * FROM videos`
         }
         return videos
     }
 
-    findById(id) {
-       
+    async findById(id) {
+        let video = await sql`SELECT * FROM videos WHERE id = ${id}`
+
+        return video
     }
 
     async create(video) {
@@ -23,14 +25,16 @@ export class DatabasePostgres {
 
         const { title, description, duration } = video
 
-        await sql`insert into videos (id, title, description, duration) VALUES (${videoId}, ${title}, ${description}, ${duration})`
+        await sql`INSERT INTO videos (id, title, description, duration) VALUES (${videoId}, ${title}, ${description}, ${duration})`
     }
 
-    update(id, video) {
-        
+    async update(id, video) {
+        const { title, description, duration } = video
+
+        await sql`UPDATE videos SET title = ${title}, desciption = ${description}, duration = ${duration} WHERE id = ${id}`
     }
 
-    delete(id) {
-        
+    async delete(id) {
+        await sql`DELETE FROM videos WHERE id = ${id}`
     }
 }
