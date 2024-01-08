@@ -61,10 +61,10 @@ server.delete('/videos/:id', async (request, reply) => {
     const videoId = request.params.id
 
     await database.delete(videoId)
-    
+
     return reply.status(204).send()
 })
 
 server.listen({
-    port: 3333,
+    port: process.env.PORT ?? 3333,
 })
